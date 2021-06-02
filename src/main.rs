@@ -41,7 +41,7 @@ fn rocket() -> rocket::Rocket {
     rocket::ignite()
         .mount("/", routes![
             controller::data_status::new,
-            controller::data_status::update,
+            // controller::data_status::update,
             controller::data_status::get,
             controller::data_status::list
         ])

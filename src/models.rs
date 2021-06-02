@@ -1,7 +1,9 @@
 use std::sync::Mutex;
-use std::collections::HashMap;
+use std::collections::HashMap; 
 
 use chrono::NaiveDateTime;
+
+use crate::schema::data_status;
 
 // use serde::Serialize;
 
@@ -27,11 +29,11 @@ pub struct DataStatus {
     pub deleted_at: Option<NaiveDateTime>
 }
 
-// #[derive(Debug, Insertable, AsChangeset)]
-// #[table_name="data_status"]
-// pub struct NewDataStatus {
-//     pub name: String
-// }
+#[derive(Debug, Insertable, Serialize, Deserialize, FromForm)]
+#[table_name = "data_status"]
+pub struct NewDataStatus {
+    pub name: String
+}
 
 // #[derive(Debug, Queryable, Serialize)]
 // pub struct Label {
