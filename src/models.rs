@@ -1,10 +1,9 @@
 use std::sync::Mutex;
 use std::collections::HashMap;
 
-// use crate::schema::*;
+use chrono::NaiveDateTime;
 
 // use serde::Serialize;
-// use chrono::NaiveDateTime;
 
 // #[derive(Debug, Queryable, Serialize)]
 // pub struct Category {
@@ -20,13 +19,13 @@ use std::collections::HashMap;
 //     pub name: String
 // }
 
-// #[derive(Debug, Queryable, Serialize, Deserialize)]
-// pub struct DataStatus {
-//     pub id: i32,
-//     pub name: String,
-//     pub created_at: NaiveDateTime,
-//     pub deleted_at: Option<NaiveDateTime>
-// }
+#[derive(Debug, Queryable, Serialize, Deserialize)]
+pub struct DataStatus {
+    pub id: i32,
+    pub name: String,
+    pub created_at: NaiveDateTime,
+    pub deleted_at: Option<NaiveDateTime>
+}
 
 // #[derive(Debug, Insertable, AsChangeset)]
 // #[table_name="data_status"]

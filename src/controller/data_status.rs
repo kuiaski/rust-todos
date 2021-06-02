@@ -1,7 +1,9 @@
-use crate::models::{ID, Message, MessageMap};
-
+use diesel::prelude::*;
 use rocket::State;
 use rocket_contrib::json::{Json, JsonValue};
+
+use crate::models::{DataStatus, ID, Message, MessageMap};
+use crate::schema::data_status;
 
 // TODO: This example can be improved by using `route` with multiple HTTP verbs.
 #[post("/<id>", format = "json", data = "<message>")]
@@ -29,16 +31,25 @@ pub fn update(id: ID, message: Json<Message>, map: State<MessageMap>) -> Option<
     }
 }
 
+#[get("/status/<id>")]
+pub fn get(id: i32) -> Json<Option<DataStatus>> {
+    let all_status = data_status::table
+        .select(data_status::all_columns)
+        .filter(data_status::id.eq(id).and(data_status::deleted_at.is_null()))
+        .first::<DataStatus>(&crate::connect())
+        .optional()
+        .unwrap();
+    
+    Json(all_status)
+}
+
 #[get("/status")]
-pub fn getAllStatus() -> Option<Json<Vec<Message>>> {
-    let mut data: Vec<Message> = Vec::new();
-    data.push(Message{
-        id: Some(10),
-        contents: String::from("Oi Zé")
-    });
-    data.push(Message{
-        id: Some(11),
-        contents: String::from("Oi Oi")
-    });
-    Some(Json(data))
+pub fn list() -> Json<Vec<DataStatus>> {
+    let all_status = data_status::table
+        .select(data_status::all_columns)
+        .filter(data_status::deleted_at.is_null())
+        .load::<DataStatus>(&crate::connect())
+        .expect("Could not get data_status");
+    
+    Json(all_status)
 }
