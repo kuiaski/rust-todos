@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  pg-rust-todos:
+    image: postgres
+    environment:
+        POSTGRES_USER: "ruth" 
+        POSTGRES_PASSWORD: "ThisIsNotASecret"
+    ports:
+        - "15432:5432"
+    volumes:
+        - pg-data-rust-todos:/var/lib/postgresql/data
+    networks:
+        - rust-todos
+
+volumes:
+    pg-data-rust-todos:
+
+networks:
+    rust-todos:
