@@ -8,12 +8,30 @@ PostgreSQL for DB.
 
 ## Quickstart
 
-Make sure you have Docker up and running.
+### PostgreSQL
 
-Run
+Run PG via Docker!
 
 ```
 docker compose -f docker/docker-compose.yaml up -d
 ```
 
-to start the development PostgreSQL database.
+### Diesel / Migration
+
+First things first. Install diesel cli
+
+```
+$ cargo install diesel_cli --no-default-features --features postgres
+```
+
+Setup the database
+
+```
+$ diesel setup
+```
+
+Apply migrations
+
+```
+diesel migration run
+```
