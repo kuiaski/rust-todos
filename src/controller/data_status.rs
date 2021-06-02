@@ -4,7 +4,6 @@ use rocket_contrib::json::{Json};
 use crate::models::{DataStatus, NewDataStatus};
 use crate::schema::data_status;
 
-// TODO: This example can be improved by using `route` with multiple HTTP verbs.
 #[post("/status", format = "json", data = "<new_status>")]
 pub fn new(new_status: Json<NewDataStatus>) -> Json<DataStatus> {
     let inserted_status = diesel::insert_into(data_status::table)
